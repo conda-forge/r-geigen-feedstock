@@ -15,7 +15,7 @@ source:
 
 build:
   merge_build_host: True  # [win]
-  number: 3
+  number: 4
   rpaths:
     - lib/R/lib/
     - lib/
@@ -40,7 +40,7 @@ test:
 
 about:
   home: https://CRAN.R-project.org/package=geigen
-  license: GPL (>= 2)
+  license: GPL-2.0-or-later
   summary: Functions to compute generalized eigenvalues and eigenvectors, the generalized Schur
     decomposition and the generalized Singular Value Decomposition of a matrix pair,
     using Lapack routines.
@@ -50,7 +50,3 @@ about:
 extra:
   recipe-maintainers:
     - conda-forge/r
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
