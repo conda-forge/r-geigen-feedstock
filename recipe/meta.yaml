@@ -9,33 +9,38 @@ package:
 source:
   fn: geigen_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/geigen_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/geigen/geigen_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/geigen_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/geigen/geigen_{{ version }}.tar.gz
   sha256: c7ffb869afb8b439a8288addccaa645289b00b12a355f351572b5fc913278f2e
 
 build:
   merge_build_host: True  # [win]
-  number: 5
+  number: 6
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('fortran') }}        # [unix]
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('fortran') }}        # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ posix }}filesystem            # [win]
+    - {{ posix }}make
+    - {{ posix }}sed                   # [win]
+    - {{ posix }}coreutils             # [win]
+    - {{ posix }}zip                   # [win]
+    - cross-r-base {{ r_base }}        # [build_platform != target_platform]
   host:
     - r-base
-
   run:
     - r-base
+    - {{ native }}gcc-libs             # [win]
 
 test:
   commands:
-    - $R -e "library('geigen')"  # [not win]
+    - $R -e "library('geigen')"           # [not win]
     - "\"%R%\" -e \"library('geigen')\""  # [win]
 
 about:
@@ -45,7 +50,9 @@ about:
     decomposition and the generalized Singular Value Decomposition of a matrix pair,
     using Lapack routines.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file:
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:
