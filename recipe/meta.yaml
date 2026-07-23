@@ -6,7 +6,6 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: geigen_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/geigen_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/geigen/geigen_{{ version }}.tar.gz
@@ -56,6 +55,7 @@ about:
   license_file:
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+    - inst/COPYRIGHTS
 
 extra:
   recipe-maintainers:
