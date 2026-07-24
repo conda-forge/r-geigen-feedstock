@@ -1,19 +1,18 @@
-{% set version = "2.3" %}
+{% set version = "2.4" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
   name: r-geigen
-  version: {{ version|replace("-", "_") }}
+  version: "{{ version|replace('-', '_') }}"
 
 source:
-  fn: geigen_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/geigen_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/geigen/geigen_{{ version }}.tar.gz
-  sha256: c7ffb869afb8b439a8288addccaa645289b00b12a355f351572b5fc913278f2e
+  sha256: 825dd78060159581cddbac82c4ce07311300407376b9c5afaf7cc2c12fa3c884
 
 build:
-  number: 9
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -51,13 +50,12 @@ test:
 about:
   home: https://CRAN.R-project.org/package=geigen
   license: GPL-2.0-or-later
-  summary: Functions to compute generalized eigenvalues and eigenvectors, the generalized Schur
-    decomposition and the generalized Singular Value Decomposition of a matrix pair,
-    using Lapack routines.
+  summary: Functions to compute generalized eigenvalues and eigenvectors, the generalized Schur decomposition and the generalized Singular Value Decomposition of a matrix pair, using Lapack routines.
   license_family: GPL3
   license_file:
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
     - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+    - inst/COPYRIGHTS
 
 extra:
   recipe-maintainers:
